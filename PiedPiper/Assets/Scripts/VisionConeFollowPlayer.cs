@@ -6,9 +6,7 @@ public class VisionConeFollowPlayer : MonoBehaviour
 {
     private GameObject player;
     private Rigidbody rb;
-    public Transform patrolPointA;
-    public Transform patrolPointB;
-    
+   
     public float speed;
     
     void Start()
@@ -38,10 +36,11 @@ public class VisionConeFollowPlayer : MonoBehaviour
             rb.velocity = transform.forward * speed;
         }
         
-        //patrol if player is not in sight
+        //stop if player is not in sight
         else
         {
             rb.velocity = Vector3.zero;
+            //TODO: maybe move to a randomly chosen spot?
         }
     }
 }
