@@ -9,7 +9,7 @@ public class VisionConeFollowPlayer : MonoBehaviour
    
     public float speed;
     
-    void Start()
+    void Awake()
     {
         player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody>();
@@ -40,7 +40,14 @@ public class VisionConeFollowPlayer : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
-            //TODO: maybe move to a randomly chosen spot?
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameManager.GM.GameOver();
         }
     }
 }

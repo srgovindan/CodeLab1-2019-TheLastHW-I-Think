@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
         if (Input.GetMouseButton(0))
         {
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
