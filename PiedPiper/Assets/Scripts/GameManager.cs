@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         
         //INIT
         startPosition = GameObject.FindWithTag("Player").transform.position;
-        //can call Reload() here
+        //can call ReloadGame() here
         timer = 0f;
         TimerUI = GameObject.Find("TimerUI").GetComponent<Text>();
         GameOverUI = GameObject.Find("GameOverUI").GetComponent<Text>();
@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0f;
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    Reload();
+                    //TODO:Write a high score saving function
+                    ReloadGame();
                 }
                 break;
         }
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
       state = GameState.pause;
     }
     
-    void Reload()
+    void ReloadGame()
     {
         Time.timeScale = 1f;
         timer = 0f;
