@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
         
         //INIT
         startPosition = GameObject.FindWithTag("Player").transform.position;
-        //can call ReloadGame() here
         timer = 0f;
         TimerUI = GameObject.Find("TimerUI").GetComponent<Text>();
         GameOverUI = GameObject.Find("GameOverUI").GetComponent<Text>();
@@ -66,14 +65,12 @@ public class GameManager : MonoBehaviour
         GameObject enemy = Instantiate(Resources.Load<GameObject>("Prefabs/Enemy"));
         enemy.transform.rotation = Random.rotation;
     }
-
     public void GameOver()
     {
       highScore = timer;
       GameOverUI.text = "Game Over!!!";
       state = GameState.pause;
     }
-    
     void ReloadGame()
     {
         Time.timeScale = 1f;
@@ -84,7 +81,6 @@ public class GameManager : MonoBehaviour
         Instantiate(Resources.Load("Prefabs/Enemy"));
         state = GameState.game;
     }
-
     void ClearScene()
     {
         foreach (var obj in GameObject.FindGameObjectsWithTag("Enemy"))
@@ -92,7 +88,6 @@ public class GameManager : MonoBehaviour
             Destroy(obj);
         }
     }
-
     void RunTimer()
     {
         timer += Time.deltaTime;

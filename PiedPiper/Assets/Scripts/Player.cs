@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
             }
             
             //move towards target
-            transform.position = Vector3.Slerp(transform.position, targetPoint, Time.deltaTime * speed);
+            transform.position = Vector3.Lerp(transform.position, targetPoint, Time.deltaTime * speed);
 
         }     
         //right click could set a flag or something to modify the movement
