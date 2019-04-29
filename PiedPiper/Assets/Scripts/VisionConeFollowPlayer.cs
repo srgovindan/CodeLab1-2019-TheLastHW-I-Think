@@ -6,6 +6,7 @@ public class VisionConeFollowPlayer : MonoBehaviour
 {
     private GameObject player;
     private Rigidbody rb;
+    private Quaternion randRot;
    
     public float speed;
     
@@ -13,6 +14,12 @@ public class VisionConeFollowPlayer : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody>();
+    }
+
+    void Start()
+    {
+        //random default orientation for enemy
+         randRot = Random.rotation;
     }
 
     void Update()
@@ -39,6 +46,7 @@ public class VisionConeFollowPlayer : MonoBehaviour
         //stop if player is not in sight
         else
         {
+            transform.rotation = Quaternion.Slerp(transform.rotation, randRot, Time.deltaTime);
             rb.velocity = Vector3.zero;
         }
     }

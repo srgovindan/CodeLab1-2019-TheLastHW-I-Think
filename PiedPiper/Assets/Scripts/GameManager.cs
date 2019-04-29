@@ -14,9 +14,27 @@ public class GameManager : MonoBehaviour
     private Vector3 startPosition;
     private float timer;
     private float highScore;
+
+    public float HighScore
+    {
+        get { return highScore; }
+        set
+        {
+            highScore = value;
+            if (value > PlayerPrefs.GetFloat(PLAYER_PREF_HIGHSCORE))
+            {
+                PlayerPrefs.SetFloat(PLAYER_PREF_HIGHSCORE, HighScore);
+            }
+        }
+    }
+
     private string timerString;
     private Text TimerUI;
+    private Text HighScoreUI;
     private Text GameOverUI;
+    
+    private const string PLAYER_PREF_HIGHSCORE = "highScore";
+    private const string FILE_HIGH_SCORE = "/HighScoreFile.txt";
     
     public float spawnTime;
     
@@ -37,7 +55,11 @@ public class GameManager : MonoBehaviour
         startPosition = GameObject.FindWithTag("Player").transform.position;
         timer = 0f;
         TimerUI = GameObject.Find("TimerUI").GetComponent<Text>();
+        HighScoreUI = GameObject.Find("HighScoreUI").GetComponent<Text>();
         GameOverUI = GameObject.Find("GameOverUI").GetComponent<Text>();
+
+        HighScoreUI.text = "High Score: " + PlayerPrefs.GetFloat(PLAYER_PREF_HIGHSCORE).ToString("F1");
+        
         InvokeRepeating(nameof(SpawnEnemy), 0f, spawnTime);
     }
 
@@ -67,7 +89,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
-      highScore = timer;
+      HighScore = timer;
       GameOverUI.text = "Game Over!!!";
       state = GameState.pause;
     }
@@ -77,6 +99,7 @@ public class GameManager : MonoBehaviour
         timer = 0f;
         ClearScene();
         GameOverUI.text = "";
+        HighScoreUI.text = "High Score: " + highScore.ToString("F1");
         GameObject.Find("Player").transform.position = startPosition;
         Instantiate(Resources.Load("Prefabs/Enemy"));
         state = GameState.game;
@@ -91,6 +114,7 @@ public class GameManager : MonoBehaviour
     void RunTimer()
     {
         timer += Time.deltaTime;
+        HighScore = timer;
         timerString = timer.ToString("F0");
         TimerUI.text = "Time Elapsed: " + timerString;
     }
