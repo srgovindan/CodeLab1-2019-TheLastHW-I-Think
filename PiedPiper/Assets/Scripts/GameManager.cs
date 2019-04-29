@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         timer = 0f;
         ClearScene();
         GameOverUI.text = "";
-        HighScoreUI.text = "High Score: " + highScore.ToString("F1");
+        HighScoreUI.text = "High Score: " + PlayerPrefs.GetFloat(PLAYER_PREF_HIGHSCORE).ToString("F1");
         GameObject.Find("Player").transform.position = startPosition;
         Instantiate(Resources.Load("Prefabs/Enemy"));
         state = GameState.game;
